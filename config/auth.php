@@ -42,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -113,5 +117,9 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
+
+    'temp_token_ttl'   => env('JWT_TEMP_TOKEN_TTL', 5),
+    'access_token_ttl' => env('JWT_ACCESS_TOKEN_TTL', 480),
+    'mfa_ttl'          => env('MFA_CODE_TTL', 10),
 
 ];
