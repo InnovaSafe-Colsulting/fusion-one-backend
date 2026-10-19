@@ -63,12 +63,13 @@ class DashboardController extends Controller
     {
         $tenantId = JWTAuth::parseToken()->getPayload()->get('tenantId');
         $branchId = (int) $request->query('branch_id');
+        $date     = $request->query('date', Carbon::today()->toDateString());
 
         if (! $branchId) {
             return response()->json(['message' => 'branch_id is required'], 422);
         }
 
-        return response()->json($this->dashboardService->getSalesByHour($tenantId, $branchId));
+        return response()->json($this->dashboardService->getSalesByHour($tenantId, $branchId, $date));
     }
 
     public function criticalInventory(Request $request): JsonResponse

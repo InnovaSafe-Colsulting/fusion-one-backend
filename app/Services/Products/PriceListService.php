@@ -8,9 +8,9 @@ class PriceListService
 {
     public function __construct(private PriceListRepositoryInterface $repository) {}
 
-    public function getAll(array $filters = []): mixed
+    public function getAll(): mixed
     {
-        return $this->repository->all($filters);
+        return $this->repository->allActive();
     }
 
     public function getById(int $id): mixed
@@ -20,12 +20,23 @@ class PriceListService
 
     public function create(array $data): mixed
     {
+        if (!empty($data['is_default'])) {
+            $this->repository->clearDefault();
+        }
         return $this->repository->create($data);
     }
 
     public function update(int $id, array $data): mixed
     {
+        if (!empty($data['is_default'])) {
+            $this->repository->clearDefault($id);
+        }
         return $this->repository->update($id, $data);
+    }
+
+    public function updateStatus(int $id): mixed
+    {
+        return $this->repository->updateStatus($id);
     }
 
     public function delete(int $id): bool

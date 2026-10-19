@@ -29,6 +29,11 @@ abstract class BaseRepository
         return $query;
     }
 
+    protected function getTenantId(): ?int
+    {
+        return $this->tenantContext->hasTenant() ? $this->tenantContext->getTenantId() : null;
+    }
+
     protected function usesTenant(): bool
     {
         return true;

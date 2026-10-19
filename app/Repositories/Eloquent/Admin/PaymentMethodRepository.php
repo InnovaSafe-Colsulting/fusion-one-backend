@@ -17,4 +17,26 @@ class PaymentMethodRepository extends BaseRepository implements PaymentMethodRep
     {
         return true;
     }
+
+    public function updateStatus(int $id, bool $isActive): mixed
+    {
+        $method = $this->query()->findOrFail($id);
+        $method->update(['is_active' => $isActive]);
+        return $method->fresh();
+    }
+
+    public function allActive(): mixed
+    {
+        return $this->query()
+            ->where('is_active', true)
+            ->select('id', 'name', 'code', 'type')
+            ->get();
+    }
+
+    public function findWithConfigs(int $id): mixed
+    {
+        return $this->query()
+            ->with('configs')
+            ->findOrFail($id);
+    }
 }

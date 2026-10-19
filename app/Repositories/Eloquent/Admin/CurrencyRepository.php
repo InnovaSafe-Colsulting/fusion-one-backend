@@ -17,4 +17,24 @@ class CurrencyRepository extends BaseRepository implements CurrencyRepositoryInt
     {
         return false;
     }
+
+    public function updateStatus(int $id): mixed
+    {
+        $record = $this->findById($id);
+        $record->update(['is_active' => !$record->is_active]);
+        return $record->fresh();
+    }
+
+    public function setDefault(int $id): mixed
+    {
+        Currency::query()->update(['selected' => 0]);
+        $record = $this->findById($id);
+        $record->update(['selected' => 1]);
+        return $record->fresh();
+    }
+
+    public function types(): mixed
+    {
+        return Currency::query()->select('id', 'name', 'code')->where('is_active', 1)->get();
+    }
 }

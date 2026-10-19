@@ -15,24 +15,31 @@ use App\Repositories\Interfaces\Admin\BranchRepositoryInterface;
 use App\Repositories\Interfaces\Admin\UserRepositoryInterface;
 use App\Repositories\Interfaces\Admin\RoleRepositoryInterface;
 use App\Repositories\Interfaces\Admin\PermissionRepositoryInterface;
+use App\Repositories\Interfaces\Admin\RolePermissionRepositoryInterface;
 use App\Repositories\Interfaces\Admin\TaxRepositoryInterface;
 use App\Repositories\Interfaces\Admin\PaymentMethodRepositoryInterface;
+use App\Repositories\Interfaces\Admin\PaymentMethodConfigRepositoryInterface;
 use App\Repositories\Interfaces\Admin\NumberingSequenceRepositoryInterface;
 use App\Repositories\Interfaces\Admin\CurrencyRepositoryInterface;
+use App\Repositories\Interfaces\Admin\CurrencyRateRepositoryInterface;
 use App\Repositories\Interfaces\Admin\TenantSettingRepositoryInterface;
 use App\Repositories\Eloquent\Admin\TenantRepository;
 use App\Repositories\Eloquent\Admin\BranchRepository;
 use App\Repositories\Eloquent\Admin\UserRepository;
 use App\Repositories\Eloquent\Admin\RoleRepository;
 use App\Repositories\Eloquent\Admin\PermissionRepository;
+use App\Repositories\Eloquent\Admin\RolePermissionRepository;
 use App\Repositories\Eloquent\Admin\TaxRepository;
 use App\Repositories\Eloquent\Admin\PaymentMethodRepository;
+use App\Repositories\Eloquent\Admin\PaymentMethodConfigRepository;
 use App\Repositories\Eloquent\Admin\NumberingSequenceRepository;
 use App\Repositories\Eloquent\Admin\CurrencyRepository;
+use App\Repositories\Eloquent\Admin\CurrencyRateRepository;
 use App\Repositories\Eloquent\Admin\TenantSettingRepository;
 
 // Products
 use App\Repositories\Interfaces\Products\ProductRepositoryInterface;
+use App\Repositories\Interfaces\Products\ProductTypeRepositoryInterface;
 use App\Repositories\Interfaces\Products\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\Products\ProductVariantRepositoryInterface;
 use App\Repositories\Interfaces\Products\IngredientRepositoryInterface;
@@ -41,7 +48,9 @@ use App\Repositories\Interfaces\Products\ComboRepositoryInterface;
 use App\Repositories\Interfaces\Products\ModifierRepositoryInterface;
 use App\Repositories\Interfaces\Products\PromotionRepositoryInterface;
 use App\Repositories\Interfaces\Products\PriceListRepositoryInterface;
+use App\Repositories\Interfaces\Products\PriceListItemRepositoryInterface;
 use App\Repositories\Eloquent\Products\ProductRepository;
+use App\Repositories\Eloquent\Products\ProductTypeRepository;
 use App\Repositories\Eloquent\Products\CategoryRepository;
 use App\Repositories\Eloquent\Products\ProductVariantRepository;
 use App\Repositories\Eloquent\Products\IngredientRepository;
@@ -50,19 +59,24 @@ use App\Repositories\Eloquent\Products\ComboRepository;
 use App\Repositories\Eloquent\Products\ModifierRepository;
 use App\Repositories\Eloquent\Products\PromotionRepository;
 use App\Repositories\Eloquent\Products\PriceListRepository;
+use App\Repositories\Eloquent\Products\PriceListItemRepository;
 
 // Inventory
 use App\Repositories\Interfaces\Inventory\WarehouseRepositoryInterface;
+use App\Repositories\Interfaces\Inventory\WarehouseTypeRepositoryInterface;
 use App\Repositories\Interfaces\Inventory\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\Inventory\InventoryMovementRepositoryInterface;
 use App\Repositories\Interfaces\Inventory\InventoryTransferRepositoryInterface;
 use App\Repositories\Interfaces\Inventory\InventoryAdjustmentRepositoryInterface;
+use App\Repositories\Interfaces\Inventory\InventoryAdjustmentItemRepositoryInterface;
 use App\Repositories\Interfaces\Inventory\InventoryLotRepositoryInterface;
 use App\Repositories\Eloquent\Inventory\WarehouseRepository;
+use App\Repositories\Eloquent\Inventory\WarehouseTypeRepository;
 use App\Repositories\Eloquent\Inventory\InventoryRepository;
 use App\Repositories\Eloquent\Inventory\InventoryMovementRepository;
 use App\Repositories\Eloquent\Inventory\InventoryTransferRepository;
 use App\Repositories\Eloquent\Inventory\InventoryAdjustmentRepository;
+use App\Repositories\Eloquent\Inventory\InventoryAdjustmentItemRepository;
 use App\Repositories\Eloquent\Inventory\InventoryLotRepository;
 
 // POS
@@ -144,13 +158,17 @@ class RepositoryServiceProvider extends ServiceProvider
             UserRepositoryInterface::class              => UserRepository::class,
             RoleRepositoryInterface::class              => RoleRepository::class,
             PermissionRepositoryInterface::class        => PermissionRepository::class,
+            RolePermissionRepositoryInterface::class    => RolePermissionRepository::class,
             TaxRepositoryInterface::class               => TaxRepository::class,
-            PaymentMethodRepositoryInterface::class     => PaymentMethodRepository::class,
+            PaymentMethodRepositoryInterface::class        => PaymentMethodRepository::class,
+            PaymentMethodConfigRepositoryInterface::class   => PaymentMethodConfigRepository::class,
             NumberingSequenceRepositoryInterface::class => NumberingSequenceRepository::class,
             CurrencyRepositoryInterface::class          => CurrencyRepository::class,
+            CurrencyRateRepositoryInterface::class      => CurrencyRateRepository::class,
             TenantSettingRepositoryInterface::class     => TenantSettingRepository::class,
             // Products
             ProductRepositoryInterface::class           => ProductRepository::class,
+            ProductTypeRepositoryInterface::class       => ProductTypeRepository::class,
             CategoryRepositoryInterface::class          => CategoryRepository::class,
             ProductVariantRepositoryInterface::class    => ProductVariantRepository::class,
             IngredientRepositoryInterface::class        => IngredientRepository::class,
@@ -159,12 +177,15 @@ class RepositoryServiceProvider extends ServiceProvider
             ModifierRepositoryInterface::class          => ModifierRepository::class,
             PromotionRepositoryInterface::class         => PromotionRepository::class,
             PriceListRepositoryInterface::class         => PriceListRepository::class,
+            PriceListItemRepositoryInterface::class      => PriceListItemRepository::class,
             // Inventory
             WarehouseRepositoryInterface::class         => WarehouseRepository::class,
+            WarehouseTypeRepositoryInterface::class      => WarehouseTypeRepository::class,
             InventoryRepositoryInterface::class         => InventoryRepository::class,
             InventoryMovementRepositoryInterface::class => InventoryMovementRepository::class,
             InventoryTransferRepositoryInterface::class => InventoryTransferRepository::class,
             InventoryAdjustmentRepositoryInterface::class => InventoryAdjustmentRepository::class,
+            InventoryAdjustmentItemRepositoryInterface::class => InventoryAdjustmentItemRepository::class,
             InventoryLotRepositoryInterface::class      => InventoryLotRepository::class,
             // POS
             RestaurantTableRepositoryInterface::class   => RestaurantTableRepository::class,
@@ -205,3 +226,4 @@ class RepositoryServiceProvider extends ServiceProvider
         }
     }
 }
+

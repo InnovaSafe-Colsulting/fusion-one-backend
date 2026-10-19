@@ -28,6 +28,21 @@ class InventoryService
         return $this->repository->update($id, $data);
     }
 
+    public function updateQuantities(int $id, array $data): mixed
+    {
+        return $this->repository->updateQuantities($id, $data);
+    }
+
+    public function getTotalAverageCost(): float
+    {
+        return $this->repository->sumAverageCost();
+    }
+
+    public function getByProductAndWarehouse(int $productId, int $warehouseId): mixed
+    {
+        return $this->repository->findByProductAndWarehouse($productId, $warehouseId);
+    }
+
     public function delete(int $id): bool
     {
         return $this->repository->delete($id);

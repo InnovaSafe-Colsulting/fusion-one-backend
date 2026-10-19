@@ -17,4 +17,12 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
     {
         return true;
     }
+
+    public function allActive(): mixed
+    {
+        return $this->query()
+            ->where('is_active', 1)
+            ->orderBy('first_name')
+            ->get(['id', 'first_name', 'last_name', 'document_number', 'phone']);
+    }
 }

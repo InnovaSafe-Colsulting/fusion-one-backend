@@ -8,7 +8,7 @@ class Permission extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['module_id', 'action', 'name', 'description', 'is_active'];
+    protected $fillable = ['action', 'name', 'description', 'is_active'];
 
     protected $casts = [
         'is_active' => 'boolean',

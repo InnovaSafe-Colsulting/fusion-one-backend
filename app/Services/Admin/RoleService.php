@@ -32,4 +32,14 @@ class RoleService
     {
         return $this->repository->delete($id);
     }
+
+    public function toggleStatus(int $id, bool $isActive): mixed
+    {
+        return $this->repository->updateStatus($id, $isActive);
+    }
+
+    public function getActive(): mixed
+    {
+        return $this->repository->allActive();
+    }
 }

@@ -8,9 +8,14 @@ class InventoryLotService
 {
     public function __construct(private InventoryLotRepositoryInterface $repository) {}
 
-    public function getAll(array $filters = []): mixed
+    public function getAll(): mixed
     {
-        return $this->repository->all($filters);
+        return $this->repository->allWithExpiration();
+    }
+
+    public function getByProduct(int $productId): mixed
+    {
+        return $this->repository->findByProduct($productId);
     }
 
     public function getById(int $id): mixed

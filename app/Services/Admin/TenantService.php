@@ -32,4 +32,9 @@ class TenantService
     {
         return $this->repository->delete($id);
     }
+
+    public function toggleStatus(int $id, int $status): mixed
+    {
+        return $this->repository->updateStatus($id, $status);
+    }
 }

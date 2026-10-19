@@ -17,4 +17,38 @@ class ComboRepository extends BaseRepository implements ComboRepositoryInterface
     {
         return true;
     }
+
+    public function allPaginated(array $filters = []): mixed
+    {
+        $query = $this->query()->withCount('items')->orderBy('name');
+
+        if (!empty($filters['name'])) {
+            $query->where('name', 'like', '%' . $filters['name'] . '%');
+        }
+
+        return $query->paginate(20);
+    }
+
+    public function allActive(): array
+    {
+        return $this->query()
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get()
+            ->toArray();
+    }
+
+    public function findWithItems(int $id): mixed
+    {
+        return $this->query()
+            ->with(['items.product:id,name,price'])
+            ->findOrFail($id);
+    }
+
+    public function updateStatus(int $id): mixed
+    {
+        $record = $this->findById($id);
+        $record->update(['is_active' => !$record->is_active]);
+        return $record->fresh();
+    }
 }

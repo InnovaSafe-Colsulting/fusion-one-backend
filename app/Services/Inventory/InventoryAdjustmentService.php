@@ -18,6 +18,11 @@ class InventoryAdjustmentService
         return $this->repository->findById($id);
     }
 
+    public function getItemsWithActiveAdjustment(): mixed
+    {
+        return $this->repository->itemsWithActiveAdjustment();
+    }
+
     public function create(array $data): mixed
     {
         return $this->repository->create($data);

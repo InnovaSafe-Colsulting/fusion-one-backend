@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ModifierOption extends Model
 {
@@ -14,4 +15,9 @@ class ModifierOption extends Model
         'price'     => 'decimal:2',
         'is_active' => 'boolean',
     ];
+
+    public function modifier(): BelongsTo
+    {
+        return $this->belongsTo(Modifier::class);
+    }
 }

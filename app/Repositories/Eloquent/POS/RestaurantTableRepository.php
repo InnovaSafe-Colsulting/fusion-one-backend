@@ -17,4 +17,12 @@ class RestaurantTableRepository extends BaseRepository implements RestaurantTabl
     {
         return true;
     }
+
+    public function allActive(): mixed
+    {
+        return $this->query()
+            ->where('is_active', 1)
+            ->orderBy('name')
+            ->get(['id', 'name', 'capacity', 'status']);
+    }
 }

@@ -13,6 +13,11 @@ class IngredientService
         return $this->repository->all($filters);
     }
 
+    public function getActive(): mixed
+    {
+        return $this->repository->allActive();
+    }
+
     public function getById(int $id): mixed
     {
         return $this->repository->findById($id);
@@ -26,6 +31,11 @@ class IngredientService
     public function update(int $id, array $data): mixed
     {
         return $this->repository->update($id, $data);
+    }
+
+    public function updateStatus(int $id): mixed
+    {
+        return $this->repository->updateStatus($id);
     }
 
     public function delete(int $id): bool

@@ -17,4 +17,11 @@ class InventoryMovementRepository extends BaseRepository implements InventoryMov
     {
         return true;
     }
+
+    public function updateByReferenceId(int $inventoryId, array $data): int
+    {
+        return $this->query()
+            ->where('reference_id', $inventoryId)
+            ->update($data);
+    }
 }

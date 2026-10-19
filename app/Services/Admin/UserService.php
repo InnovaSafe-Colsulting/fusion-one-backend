@@ -10,12 +10,12 @@ class UserService
 
     public function getAll(array $filters = []): mixed
     {
-        return $this->repository->all($filters);
+        return $this->repository->allWithRelations();
     }
 
     public function getById(int $id): mixed
     {
-        return $this->repository->findById($id);
+        return $this->repository->findWithRelations($id);
     }
 
     public function create(array $data): mixed
@@ -31,5 +31,10 @@ class UserService
     public function delete(int $id): bool
     {
         return $this->repository->delete($id);
+    }
+
+    public function toggleStatus(int $id, bool $isActive): mixed
+    {
+        return $this->repository->updateStatus($id, $isActive);
     }
 }

@@ -16,6 +16,11 @@ class CustomerController extends Controller
         return response()->json($this->service->getAll($request->all()));
     }
 
+    public function active(): JsonResponse
+    {
+        return response()->json($this->service->getActive());
+    }
+
     public function show(int $id): JsonResponse
     {
         return response()->json($this->service->getById($id));

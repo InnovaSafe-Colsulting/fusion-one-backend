@@ -32,4 +32,9 @@ class PermissionService
     {
         return $this->repository->delete($id);
     }
+
+    public function toggleStatus(int $id, bool $isActive): mixed
+    {
+        return $this->repository->updateStatus($id, $isActive);
+    }
 }

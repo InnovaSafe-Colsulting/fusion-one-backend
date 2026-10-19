@@ -3,6 +3,8 @@
 namespace App\Services\Admin;
 
 use App\Repositories\Interfaces\Admin\CurrencyRepositoryInterface;
+use App\Services\CacheService;
+use Illuminate\Support\Facades\Cache;
 
 class CurrencyService
 {
@@ -10,7 +12,7 @@ class CurrencyService
 
     public function getAll(array $filters = []): mixed
     {
-        return $this->repository->all($filters);
+        return CacheService::remember(CacheService::currenciesKey(), CacheService::TTL_LONG, fn() => $this->repository->all($filters));
     }
 
     public function getById(int $id): mixed
@@ -20,16 +22,41 @@ class CurrencyService
 
     public function create(array $data): mixed
     {
-        return $this->repository->create($data);
+        $result = $this->repository->create($data);
+        CacheService::flushCurrencies();
+        return $result;
     }
 
     public function update(int $id, array $data): mixed
     {
-        return $this->repository->update($id, $data);
+        $result = $this->repository->update($id, $data);
+        CacheService::flushCurrencies();
+        return $result;
     }
 
     public function delete(int $id): bool
     {
-        return $this->repository->delete($id);
+        $result = $this->repository->delete($id);
+        CacheService::flushCurrencies();
+        return $result;
+    }
+
+    public function updateStatus(int $id): mixed
+    {
+        $result = $this->repository->updateStatus($id);
+        CacheService::flushCurrencies();
+        return $result;
+    }
+
+    public function setDefault(int $id): mixed
+    {
+        $result = $this->repository->setDefault($id);
+        CacheService::flushCurrencies();
+        return $result;
+    }
+
+    public function types(): mixed
+    {
+        return CacheService::remember(CacheService::currenciesTypesKey(), CacheService::TTL_LONG, fn() => $this->repository->types());
     }
 }

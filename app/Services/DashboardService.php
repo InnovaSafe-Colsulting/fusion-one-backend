@@ -225,12 +225,12 @@ class DashboardService
         ];
     }
 
-    public function getSalesByHour(int $tenantId, int $branchId): array
+    public function getSalesByHour(int $tenantId, int $branchId, string $date): array
     {
         $rows = Invoice::where('tenant_id', $tenantId)
             ->where('branch_id', $branchId)
             ->where('status', InvoiceStatus::PAID->value)
-            ->whereDate('issued_at', Carbon::today())
+            ->whereDate('issued_at', $date)
             ->selectRaw('HOUR(issued_at) as hour, SUM(total) as total')
             ->groupByRaw('HOUR(issued_at)')
             ->pluck('total', 'hour');

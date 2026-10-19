@@ -15,12 +15,12 @@ class BranchService
 
     public function getAll(array $filters = []): mixed
     {
-        return $this->repository->all($filters);
+        return $this->repository->allWithCity();
     }
 
     public function getById(int $id): mixed
     {
-        return $this->repository->findById($id);
+        return $this->repository->findWithCity($id);
     }
 
     public function create(array $data): mixed
@@ -36,5 +36,10 @@ class BranchService
     public function delete(int $id): bool
     {
         return $this->repository->delete($id);
+    }
+
+    public function toggleStatus(int $id, bool $isActive): mixed
+    {
+        return $this->repository->updateStatus($id, $isActive);
     }
 }

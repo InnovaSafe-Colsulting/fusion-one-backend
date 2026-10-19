@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Services\Admin\TenantService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Throwable;
 
 class TenantController extends Controller
 {
@@ -35,5 +37,18 @@ class TenantController extends Controller
     {
         $this->service->delete($id);
         return response()->json(null, 204);
+    }
+
+    public function toggleStatus(int $id): JsonResponse
+    {
+        try {
+            $status = (int) request()->input('status');
+            $tenant = $this->service->toggleStatus($id, $status);
+            return response()->json(['message' => 'Estado actualizado correctamente', 'data' => $tenant]);
+        } catch (ModelNotFoundException) {
+            return response()->json(['message' => 'Empresa no encontrada'], 404);
+        } catch (Throwable $e) {
+            return response()->json(['message' => 'Error al actualizar estado', 'error' => $e->getMessage()], 500);
+        }
     }
 }

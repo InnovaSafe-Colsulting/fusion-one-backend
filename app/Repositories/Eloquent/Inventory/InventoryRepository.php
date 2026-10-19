@@ -17,4 +17,24 @@ class InventoryRepository extends BaseRepository implements InventoryRepositoryI
     {
         return true;
     }
+
+    public function updateQuantities(int $id, array $data): mixed
+    {
+        $record = $this->query()->findOrFail($id);
+        $record->update($data);
+        return $record->fresh();
+    }
+
+    public function sumAverageCost(): float
+    {
+        return (float) $this->query()->sum('average_cost');
+    }
+
+    public function findByProductAndWarehouse(int $productId, int $warehouseId): mixed
+    {
+        return $this->query()
+            ->where('product_id', $productId)
+            ->where('warehouse_id', $warehouseId)
+            ->first();
+    }
 }

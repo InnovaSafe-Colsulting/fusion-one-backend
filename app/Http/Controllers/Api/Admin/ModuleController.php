@@ -17,4 +17,17 @@ class ModuleController extends Controller
 
         return response()->json($modules);
     }
+
+    public function root(): JsonResponse
+    {
+        $modules = Module::whereNull('parent_id')
+            ->whereNull('sub_parent_id')
+            ->whereNull('sub_identifier')
+            ->where('is_active', true)
+            ->select('id', 'name', 'slug')
+            ->orderBy('name')
+            ->get();
+
+        return response()->json($modules);
+    }
 }

@@ -17,4 +17,11 @@ class TenantRepository extends BaseRepository implements TenantRepositoryInterfa
     {
         return false;
     }
+
+    public function updateStatus(int $id, int $status): mixed
+    {
+        $tenant = $this->model->findOrFail($id);
+        $tenant->update(['status' => $status]);
+        return $tenant->fresh();
+    }
 }

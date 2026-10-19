@@ -17,4 +17,11 @@ class PermissionRepository extends BaseRepository implements PermissionRepositor
     {
         return false;
     }
+
+    public function updateStatus(int $id, bool $isActive): mixed
+    {
+        $permission = $this->model->newQuery()->findOrFail($id);
+        $permission->update(['is_active' => $isActive]);
+        return $permission->fresh();
+    }
 }

@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Recipe extends Model
 {
-    protected $fillable = ['tenant_id', 'product_id', 'version', 'yield_quantity', 'is_active'];
+    protected $fillable = ['tenant_id', 'name', 'description', 'is_active'];
 
-    protected $casts = [
-        'yield_quantity' => 'decimal:4',
-        'is_active'      => 'boolean',
-    ];
+    protected $casts = ['is_active' => 'boolean'];
+
+    public function ingredients(): HasMany
+    {
+        return $this->hasMany(RecipeIngredient::class);
+    }
 }

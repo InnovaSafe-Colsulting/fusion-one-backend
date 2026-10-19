@@ -28,6 +28,11 @@ class InventoryMovementService
         return $this->repository->update($id, $data);
     }
 
+    public function updateByReference(int $inventoryId, array $data): int
+    {
+        return $this->repository->updateByReferenceId($inventoryId, $data);
+    }
+
     public function delete(int $id): bool
     {
         return $this->repository->delete($id);

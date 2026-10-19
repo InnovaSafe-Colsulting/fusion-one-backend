@@ -17,8 +17,13 @@ class DatabaseSeeder extends Seeder
             TenantSeeder::class,
             BranchSeeder::class,
             ModulesSeeder::class,
+            PermissionsSeeder::class,
             RolesSeeder::class,
             UsersSeeder::class,
+            PaymentMethodSeeder::class,
+            CurrencySeeder::class,
+            ProductTypeSeeder::class,
+            PriceListSeeder::class,
         ]);
     }
 }
